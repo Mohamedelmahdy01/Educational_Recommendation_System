@@ -24,8 +24,8 @@ instance/
 *.log
 
 # Model and encoder files
-random_forest_model.pkl
-label_encoder.pkl
+#random_forest_model.pkl
+#label_encoder.pkl
 
 # System files
 .DS_Store
