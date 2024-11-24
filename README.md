@@ -58,10 +58,10 @@ This project targets computer science students and anyone passionate about devel
 
 1. **Clone the repository**:  
    ```bash
-   git clone https://github.com/YourUsername/Career-Recommendation-System.git
+   git clone https://github.com/Mohamedelmahdy01/Career-Recommendation-System.git
    cd Career-Recommendation-System
    ```
-
+   
 2. **Create a virtual environment (optional)**:  
    ```bash
    python -m venv venv
@@ -97,7 +97,7 @@ This project targets computer science students and anyone passionate about devel
 We welcome contributions to improve the project!  
 1. **Fork the repository**:  
    ```bash
-   git clone https://github.com/YourUsername/Career-Recommendation-System.git
+   git clone https://github.com/Mohamedelmahdy01/Career-Recommendation-System.git
    ```
 2. **Create a new branch**:  
    ```bash
