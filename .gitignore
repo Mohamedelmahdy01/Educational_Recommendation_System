@@ -1,0 +1,35 @@
+# Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environment
+venv/
+env/
+*.env
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Flask instance folder
+instance/
+
+# pycharm project files
+.idea/
+
+# VS Code project files
+.vscode/
+
+# Log files
+*.log
+
+# Model and encoder files
+random_forest_model.pkl
+label_encoder.pkl
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp

@@ -37,6 +37,8 @@ pip install -r requirements.txt
 
 ```
 📁 Project Directory
+├── random_forest_model.py
+├── label_encoder.py           
 ├── flask_app.py               # Main Flask app file
 ├── random_forest_model.pkl     # Pre-trained Random Forest model
 ├── label_encoder.pkl           # Pre-trained LabelEncoder
