@@ -6,15 +6,14 @@ An **AI-powered Career Recommendation System** designed to analyze users' skills
 
 ## 📖 Table of Contents
 
-- [About the Project](#about-the-project)  
-- [Features](#features)  
-- [Dataset](#dataset)  
-- [Technologies Used](#technologies-used)  
-- [Setup and Run](#setup-and-run)  
-- [Future Improvements](#future-improvements)  
-- [How to Contribute](#how-to-contribute)  
-- [License](#license)
-
+- About the Project
+- Features
+- Dataset
+- Technologies Used 
+- Setup and Run  
+- Future Improvements  
+- How to Contribute
+- License
 ---
 
 ## 🔍 About the Project
