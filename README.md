@@ -111,5 +111,5 @@ This project is licensed under the MIT License. Feel free to modify and distribu
 
 For queries or contributions:
 - **Email**: medo.medo132003@gmail.com
-- **GitHub**: [your-username](https://github.com/Mohamedelmahdy01)
+- **GitHub**: [Mohamed Elmahdy](https://github.com/Mohamedelmahdy01)
 ```
