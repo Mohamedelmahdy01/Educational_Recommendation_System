@@ -1,36 +1,66 @@
-import pickle
 from flask import Flask, request, jsonify
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
-MODEL_FILE = "random_forest_model.pkl"  
-ENCODER_FILE = "label_encoder.pkl"      
-with open(MODEL_FILE, "rb") as model_file:
-    model = pickle.load(model_file)
-
-with open(ENCODER_FILE, "rb") as encoder_file:
-    label_encoder = pickle.load(encoder_file)
-
+# Initialize the Flask app
 app = Flask(__name__)
 
-@app.route("/", methods=["GET"])
-def home():
-    return "The ML model API is running successfully!", 200
+# Load and preprocess the data
+data = pd.read_csv("educational_platform_dataset_balanced.csv")
 
-@app.route("/predict", methods=["POST"])
+field_counts = data["Recommended Field"].value_counts()
+
+# Balance the dataset
+balanced_data = pd.DataFrame()
+for field in field_counts.index:
+    field_data = data[data["Recommended Field"] == field]
+    balanced_data = pd.concat([
+        balanced_data,
+        field_data.sample(n=field_counts.max(), replace=True, random_state=42)
+    ])
+
+balanced_data = balanced_data.sample(frac=1, random_state=42).reset_index(drop=True)
+
+X = balanced_data.drop("Recommended Field", axis=1)
+y = balanced_data["Recommended Field"]
+
+# Encode the labels
+label_encoder = LabelEncoder()
+y_encoded = label_encoder.fit_transform(y)
+
+# Split the data
+X_train, X_test, y_train, y_test = train_test_split(X, y_encoded, test_size=0.2, random_state=42)
+
+# Train the Random Forest model
+model = RandomForestClassifier(random_state=42)
+model.fit(X_train, y_train)
+
+# Function to predict the field
+def predict_field(user_answers):
+    prediction = model.predict([user_answers])
+    field = label_encoder.inverse_transform(prediction)
+    return field[0]
+
+# Define the API endpoint
+@app.route('/predict', methods=['POST'])
 def predict():
     try:
-        data = request.get_json()
-        answers = data.get("answers")
+        # Parse the input JSON
+        user_data = request.json
+        user_answers = user_data.get("answers")
+        
+        if not user_answers or len(user_answers) != X_train.shape[1]:
+            return jsonify({"error": "Invalid input data"}), 400
 
-        if not answers or not isinstance(answers, list) or len(answers) != 20:
-            return jsonify({"error": "Invalid input. Please provide a list of 20 answers."}), 400
-
-        prediction = model.predict([answers])
-        recommended_field = label_encoder.inverse_transform(prediction)[0]
-
-        return jsonify({"recommended_field": recommended_field})
-
+        # Predict the field
+        recommended_field = predict_field(user_answers)
+        return jsonify({"Recommended Field": recommended_field})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+# Start the Flask app
+if __name__ == '__main__':
+    app.run(debug=True)
